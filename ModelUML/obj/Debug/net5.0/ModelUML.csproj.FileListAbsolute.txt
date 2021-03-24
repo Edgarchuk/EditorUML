@@ -1,0 +1,12 @@
+C:\Users\nazyr\RiderProjects\UMLEditor\ModelUML\bin\Debug\net5.0\ModelUML.deps.json
+C:\Users\nazyr\RiderProjects\UMLEditor\ModelUML\bin\Debug\net5.0\ModelUML.dll
+C:\Users\nazyr\RiderProjects\UMLEditor\ModelUML\bin\Debug\net5.0\ref\ModelUML.dll
+C:\Users\nazyr\RiderProjects\UMLEditor\ModelUML\bin\Debug\net5.0\ModelUML.pdb
+C:\Users\nazyr\RiderProjects\UMLEditor\ModelUML\obj\Debug\net5.0\ModelUML.csprojAssemblyReference.cache
+C:\Users\nazyr\RiderProjects\UMLEditor\ModelUML\obj\Debug\net5.0\ModelUML.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\nazyr\RiderProjects\UMLEditor\ModelUML\obj\Debug\net5.0\ModelUML.AssemblyInfoInputs.cache
+C:\Users\nazyr\RiderProjects\UMLEditor\ModelUML\obj\Debug\net5.0\ModelUML.AssemblyInfo.cs
+C:\Users\nazyr\RiderProjects\UMLEditor\ModelUML\obj\Debug\net5.0\ModelUML.csproj.CoreCompileInputs.cache
+C:\Users\nazyr\RiderProjects\UMLEditor\ModelUML\obj\Debug\net5.0\ModelUML.dll
+C:\Users\nazyr\RiderProjects\UMLEditor\ModelUML\obj\Debug\net5.0\ref\ModelUML.dll
+C:\Users\nazyr\RiderProjects\UMLEditor\ModelUML\obj\Debug\net5.0\ModelUML.pdb

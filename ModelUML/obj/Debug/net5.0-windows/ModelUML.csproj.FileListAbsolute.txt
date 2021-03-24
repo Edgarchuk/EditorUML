@@ -1,0 +1,12 @@
+C:\Users\nazyr\RiderProjects\UMLEditor\ModelUML\bin\Debug\net5.0-windows\ModelUML.deps.json
+C:\Users\nazyr\RiderProjects\UMLEditor\ModelUML\bin\Debug\net5.0-windows\ModelUML.dll
+C:\Users\nazyr\RiderProjects\UMLEditor\ModelUML\bin\Debug\net5.0-windows\ref\ModelUML.dll
+C:\Users\nazyr\RiderProjects\UMLEditor\ModelUML\bin\Debug\net5.0-windows\ModelUML.pdb
+C:\Users\nazyr\RiderProjects\UMLEditor\ModelUML\obj\Debug\net5.0-windows\ModelUML.csprojAssemblyReference.cache
+C:\Users\nazyr\RiderProjects\UMLEditor\ModelUML\obj\Debug\net5.0-windows\ModelUML.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\nazyr\RiderProjects\UMLEditor\ModelUML\obj\Debug\net5.0-windows\ModelUML.AssemblyInfoInputs.cache
+C:\Users\nazyr\RiderProjects\UMLEditor\ModelUML\obj\Debug\net5.0-windows\ModelUML.AssemblyInfo.cs
+C:\Users\nazyr\RiderProjects\UMLEditor\ModelUML\obj\Debug\net5.0-windows\ModelUML.csproj.CoreCompileInputs.cache
+C:\Users\nazyr\RiderProjects\UMLEditor\ModelUML\obj\Debug\net5.0-windows\ModelUML.dll
+C:\Users\nazyr\RiderProjects\UMLEditor\ModelUML\obj\Debug\net5.0-windows\ref\ModelUML.dll
+C:\Users\nazyr\RiderProjects\UMLEditor\ModelUML\obj\Debug\net5.0-windows\ModelUML.pdb
