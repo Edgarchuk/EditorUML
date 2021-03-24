@@ -17,7 +17,7 @@ namespace ModelUML
 
         public override string ToString()
         {
-            return $"Field {Name} {Type}";
+            return $"{Type} {Name}";
         }
     } 
     public class Class

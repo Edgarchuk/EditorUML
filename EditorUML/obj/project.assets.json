@@ -1,11 +1,30 @@
 {
   "version": 3,
   "targets": {
-    "net5.0-windows7.0": {}
+    "net5.0-windows7.0": {
+      "ModelUML/1.0.0": {
+        "type": "project",
+        "framework": ".NETCoreApp,Version=v5.0",
+        "compile": {
+          "bin/placeholder/ModelUML.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/ModelUML.dll": {}
+        }
+      }
+    }
   },
-  "libraries": {},
+  "libraries": {
+    "ModelUML/1.0.0": {
+      "type": "project",
+      "path": "../ModelUML/ModelUML.csproj",
+      "msbuildProject": "../ModelUML/ModelUML.csproj"
+    }
+  },
   "projectFileDependencyGroups": {
-    "net5.0-windows7.0": []
+    "net5.0-windows7.0": [
+      "ModelUML >= 1.0.0"
+    ]
   },
   "packageFolders": {
     "C:\\Users\\nazyr\\.nuget\\packages\\": {}
@@ -33,7 +52,11 @@
       "frameworks": {
         "net5.0-windows7.0": {
           "targetAlias": "net5.0-windows",
-          "projectReferences": {}
+          "projectReferences": {
+            "C:\\Users\\nazyr\\RiderProjects\\EditorUML\\ModelUML\\ModelUML.csproj": {
+              "projectPath": "C:\\Users\\nazyr\\RiderProjects\\EditorUML\\ModelUML\\ModelUML.csproj"
+            }
+          }
         }
       },
       "warningProperties": {
