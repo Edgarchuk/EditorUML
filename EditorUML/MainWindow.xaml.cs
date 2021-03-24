@@ -20,9 +20,15 @@ namespace EditorUML
     /// </summary>
     public partial class MainWindow : Window
     {
+        public static Point MousePosition = new Point(0, 0); 
         public MainWindow()
         {
             InitializeComponent();
+        }
+
+        private void MainWindow_OnMouseMove(object sender, MouseEventArgs e)
+        {
+            MousePosition = Mouse.GetPosition(sender as IInputElement);
         }
     }
 }

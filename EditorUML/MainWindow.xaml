@@ -3,34 +3,53 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
+        xmlns:catel="http://catel.codeplex.com"
         xmlns:local="clr-namespace:EditorUML"
         xmlns:viewModel="clr-namespace:EditorUML.ViewModel"
+        xmlns:carel="http://schemas.catelproject.com"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
+        Title="MainWindow" Height="450" Width="800"
+        MouseMove="MainWindow_OnMouseMove">
     <Window.DataContext>
         <viewModel:MainWindowViewModel/>
     </Window.DataContext>
+    <Window.Resources>
+        <Style x:Key="ListViewHeaderStyle" TargetType="{x:Type GridViewColumnHeader}">
+            <Setter Property="Visibility" Value="Collapsed" />
+        </Style>
+    </Window.Resources>
     <Grid>
         <ItemsControl ItemsSource="{Binding ClassViewModels}">
             <ItemsControl.ItemTemplate>
                 <DataTemplate>
                     <Border BorderThickness="3" CornerRadius="8" BorderBrush="Black">
+                        <i:Interaction.Triggers>
+                            <i:EventTrigger EventName="MouseDown">
+                                <carel:EventToCommand Command="{Binding MouseDown}" DisableAssociatedObjectOnCannotExecute="False"  />
+                            </i:EventTrigger>
+                            <i:EventTrigger EventName="MouseMove">
+                                <carel:EventToCommand Command="{Binding MouseMove}" DisableAssociatedObjectOnCannotExecute="False" PassEventArgsToCommand="True" />
+                            </i:EventTrigger>
+                            <i:EventTrigger EventName="MouseUp">
+                                <carel:EventToCommand Command="{Binding MouseUp}" DisableAssociatedObjectOnCannotExecute="False" ></carel:EventToCommand>
+                            </i:EventTrigger>
+                        </i:Interaction.Triggers>
                         <Grid Margin="3">
                             <Grid.RowDefinitions>
                                 <RowDefinition></RowDefinition>
                                 <RowDefinition></RowDefinition>
                                 <RowDefinition></RowDefinition>
                             </Grid.RowDefinitions>
-                            
-                            <ListView ItemsSource="{Binding Attributes}">
+                            <Label Content="{Binding Name}" />
+                            <ListView Grid.Row="1" ItemsSource="{Binding Attributes}" >
                                 <ListView.View>
-                                    <GridView>
+                                    <GridView ColumnHeaderContainerStyle="{StaticResource ListViewHeaderStyle}">
+                                        <GridViewColumn DisplayMemberBinding="{Binding Path=Type}"/>
                                         <GridViewColumn DisplayMemberBinding="{Binding Path=Name}"/>
-                                        <GridViewColumn DisplayMemberBinding="{Binding Path=Type}"></GridViewColumn>
                                     </GridView>
                                 </ListView.View>
                             </ListView>
-                            
                         </Grid>
                     </Border>
                 </DataTemplate>
