@@ -8,8 +8,9 @@
         xmlns:local="clr-namespace:EditorUML"
         xmlns:viewModel="clr-namespace:EditorUML.ViewModel"
         xmlns:carel="http://schemas.catelproject.com"
+        xmlns:shape="clr-namespace:EditorUML.Shape"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800"
+        Title="MainWindow" Height="800" Width="1200"
         MouseMove="MainWindow_OnMouseMove">
     <Window.DataContext>
         <viewModel:MainWindowViewModel/>
@@ -19,11 +20,24 @@
             <Setter Property="Visibility" Value="Collapsed" />
         </Style>
     </Window.Resources>
+    
     <Grid>
+        <ItemsControl ItemsSource="{Binding LineaViewModels}">
+            <ItemsControl.ItemTemplate>
+                <DataTemplate>
+                    <Line X1="0"
+                          Y1="0"
+                          X2="200"
+                          Y2="200"/>
+                </DataTemplate>
+            </ItemsControl.ItemTemplate>
+        </ItemsControl>
         <ItemsControl ItemsSource="{Binding ClassViewModels}">
             <ItemsControl.ItemTemplate>
                 <DataTemplate>
-                    <Border BorderThickness="3" CornerRadius="8" BorderBrush="Black">
+                    <Border BorderThickness="3" CornerRadius="8" BorderBrush="Black"
+                            Width="{Binding Size.X, Mode=OneWayToSource}"
+                            Height="{Binding Size.Y, Mode=OneWayToSource}">
                         <i:Interaction.Triggers>
                             <i:EventTrigger EventName="MouseDown">
                                 <carel:EventToCommand Command="{Binding MouseDown}" DisableAssociatedObjectOnCannotExecute="False"  />
@@ -40,16 +54,50 @@
                                 <RowDefinition></RowDefinition>
                                 <RowDefinition></RowDefinition>
                                 <RowDefinition></RowDefinition>
+                                <RowDefinition />
+                                <RowDefinition />
                             </Grid.RowDefinitions>
                             <Label Content="{Binding Name}" />
                             <ListView Grid.Row="1" ItemsSource="{Binding Attributes}" >
+                                <i:Interaction.Triggers>
+                                    <i:EventTrigger EventName="MouseDoubleClick">
+                                        <carel:EventToCommand Command="{Binding EditAttributes}"/>
+                                    </i:EventTrigger>
+                                    <i:EventTrigger EventName="PreviewMouseLeftButtonUp">
+                                        <carel:EventToCommand Command="{Binding SelectionAttributeChanged}" PassEventArgsToCommand="True"></carel:EventToCommand>
+                                    </i:EventTrigger>
+                                </i:Interaction.Triggers>
                                 <ListView.View>
                                     <GridView ColumnHeaderContainerStyle="{StaticResource ListViewHeaderStyle}">
-                                        <GridViewColumn DisplayMemberBinding="{Binding Path=Type}"/>
+                                        <GridViewColumn Width="70" DisplayMemberBinding="{Binding Path=Type}"/>
+                                        <GridViewColumn Width="300" DisplayMemberBinding="{Binding Path=Name}"/>
+                                    </GridView>
+                                </ListView.View>
+                            </ListView>
+                            <WrapPanel Grid.Row="2">
+                                <Button Command="{Binding AddAttribute}"> Add</Button>
+                                <Button Command="{Binding DeleteAttribute}">Delete</Button>
+                            </WrapPanel>
+                            <ListView Grid.Row="3" ItemsSource="{Binding Methods}" >
+                                <i:Interaction.Triggers>
+                                    <i:EventTrigger EventName="MouseDoubleClick">
+                                        <carel:EventToCommand Command="{Binding EditAttributes}"/>
+                                    </i:EventTrigger>
+                                    <i:EventTrigger EventName="PreviewMouseLeftButtonUp">
+                                        <carel:EventToCommand Command="{Binding SelectionMethodChanged}" PassEventArgsToCommand="True"></carel:EventToCommand>
+                                    </i:EventTrigger>
+                                </i:Interaction.Triggers>
+                                <ListView.View>
+                                    <GridView ColumnHeaderContainerStyle="{StaticResource ListViewHeaderStyle}">
+                                        <GridViewColumn Width="70" DisplayMemberBinding="{Binding Path=Type}"/>
                                         <GridViewColumn DisplayMemberBinding="{Binding Path=Name}"/>
                                     </GridView>
                                 </ListView.View>
                             </ListView>
+                            <WrapPanel Grid.Row="4">
+                                <Button Command="{Binding AddMethod}"> Add</Button>
+                                <Button Command="{Binding DeleteMethod}">Delete</Button>
+                            </WrapPanel>
                         </Grid>
                     </Border>
                 </DataTemplate>
