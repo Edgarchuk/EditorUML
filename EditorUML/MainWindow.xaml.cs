@@ -12,6 +12,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using EditorUML.ViewModel;
 
 namespace EditorUML
 {
@@ -24,11 +25,23 @@ namespace EditorUML
         public MainWindow()
         {
             InitializeComponent();
+            
         }
 
         private void MainWindow_OnMouseMove(object sender, MouseEventArgs e)
         {
             MousePosition = Mouse.GetPosition(sender as IInputElement);
+        }
+
+        private void FrameworkElement_OnInitialized(object? sender, EventArgs e)
+        {
+            if (sender != null)
+            {
+                var frameworkElement = (FrameworkElement) sender;
+                var classViewModel = (ClassViewModel) frameworkElement.DataContext;
+                classViewModel.Height = (int) frameworkElement.Height;
+                classViewModel.Width = (int) frameworkElement.Width;
+            }
         }
     }
 }

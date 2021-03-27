@@ -28,7 +28,9 @@ namespace EditorUML.ViewModel
                     new FieldViewModel() {Name = "TestMet", Type = VisibilityType.Private}
                 },
                 Id = 1,
-                Position = new Point(100, 100)
+                Position = new Point(100, 100),
+                Height = 100,
+                Width = 100
             });
             ClassViewModels.Add(new ClassViewModel()
             {
@@ -42,15 +44,13 @@ namespace EditorUML.ViewModel
                     new FieldViewModel() {Name = "TestMet", Type = VisibilityType.Private}
                 },
                 Id = 1,
-                Position = new Point(700, 100)
+                Position = new Point(700, 100),
+                Height = 100,
+                Width = 100
             });
 
             LineaViewModels = new ObservableCollection<LineViewModel>();
-            LineaViewModels.Add(new LineViewModel()
-            {
-                FirstClass = ClassViewModels[0],
-                SecondClass = ClassViewModels[1]
-            });
+            LineaViewModels.Add(new LineViewModel(ClassViewModels[0], ClassViewModels[1]));
         }
 
         

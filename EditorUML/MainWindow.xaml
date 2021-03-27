@@ -8,7 +8,6 @@
         xmlns:local="clr-namespace:EditorUML"
         xmlns:viewModel="clr-namespace:EditorUML.ViewModel"
         xmlns:carel="http://schemas.catelproject.com"
-        xmlns:shape="clr-namespace:EditorUML.Shape"
         mc:Ignorable="d"
         Title="MainWindow" Height="800" Width="1200"
         MouseMove="MainWindow_OnMouseMove">
@@ -25,25 +24,39 @@
         <ItemsControl ItemsSource="{Binding LineaViewModels}">
             <ItemsControl.ItemTemplate>
                 <DataTemplate>
-                    <Line X1="0"
-                          Y1="0"
-                          X2="200"
-                          Y2="200"/>
+                    <Grid>
+                        <Line X1="{Binding First.X}"
+                              Y1="{Binding First.Y}"
+                              X2="{Binding Second.X}"
+                              Y2="{Binding Second.Y}"
+                              Stroke="Black" StrokeThickness="3"/>
+                        <Line X1 = "{Binding ArrowFirst.X}"
+                              Y1 = "{Binding ArrowFirst.Y}"
+                              X2 = "{Binding ArrowMiddle.X}"
+                              Y2 = "{Binding ArrowMiddle.Y}"
+                              Stroke="Black" StrokeThickness="3"/>
+                        <Line X1 = "{Binding ArrowSecond.X}"
+                              Y1 = "{Binding ArrowSecond.Y}"
+                              X2 = "{Binding ArrowMiddle.X}"
+                              Y2 = "{Binding ArrowMiddle.Y}"
+                              Stroke="Black" StrokeThickness="3"/>
+                    </Grid>
                 </DataTemplate>
             </ItemsControl.ItemTemplate>
         </ItemsControl>
         <ItemsControl ItemsSource="{Binding ClassViewModels}">
             <ItemsControl.ItemTemplate>
                 <DataTemplate>
-                    <Border BorderThickness="3" CornerRadius="8" BorderBrush="Black"
-                            Width="{Binding Size.X, Mode=OneWayToSource}"
-                            Height="{Binding Size.Y, Mode=OneWayToSource}">
+                    <Border BorderThickness="3" CornerRadius="8" BorderBrush="Black" Background="Snow"
+                            Height="{Binding Height}"
+                            Width="{Binding Width}"
+                            Initialized="FrameworkElement_OnInitialized">
                         <i:Interaction.Triggers>
                             <i:EventTrigger EventName="MouseDown">
                                 <carel:EventToCommand Command="{Binding MouseDown}" DisableAssociatedObjectOnCannotExecute="False"  />
                             </i:EventTrigger>
                             <i:EventTrigger EventName="MouseMove">
-                                <carel:EventToCommand Command="{Binding MouseMove}" DisableAssociatedObjectOnCannotExecute="False" PassEventArgsToCommand="True" />
+                                <carel:EventToCommand Command="{Binding MouseMove}" DisableAssociatedObjectOnCannotExecute="False" />
                             </i:EventTrigger>
                             <i:EventTrigger EventName="MouseUp">
                                 <carel:EventToCommand Command="{Binding MouseUp}" DisableAssociatedObjectOnCannotExecute="False" ></carel:EventToCommand>
@@ -51,11 +64,11 @@
                         </i:Interaction.Triggers>
                         <Grid Margin="3">
                             <Grid.RowDefinitions>
-                                <RowDefinition></RowDefinition>
-                                <RowDefinition></RowDefinition>
-                                <RowDefinition></RowDefinition>
-                                <RowDefinition />
-                                <RowDefinition />
+                                <RowDefinition Height="30"></RowDefinition>
+                                <RowDefinition Height="Auto"></RowDefinition>
+                                <RowDefinition Height="20"></RowDefinition>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="20"/>
                             </Grid.RowDefinitions>
                             <Label Content="{Binding Name}" />
                             <ListView Grid.Row="1" ItemsSource="{Binding Attributes}" >
@@ -70,7 +83,7 @@
                                 <ListView.View>
                                     <GridView ColumnHeaderContainerStyle="{StaticResource ListViewHeaderStyle}">
                                         <GridViewColumn Width="70" DisplayMemberBinding="{Binding Path=Type}"/>
-                                        <GridViewColumn Width="300" DisplayMemberBinding="{Binding Path=Name}"/>
+                                        <GridViewColumn DisplayMemberBinding="{Binding Path=Name}"/>
                                     </GridView>
                                 </ListView.View>
                             </ListView>

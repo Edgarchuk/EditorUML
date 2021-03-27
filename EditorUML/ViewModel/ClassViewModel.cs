@@ -1,12 +1,23 @@
-﻿using System.Collections.ObjectModel;
+﻿using System;
+using System.Collections.ObjectModel;
+using System.Numerics;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 using Catel.MVVM;
 using ModelUML;
+using Vector = System.Windows.Vector;
 
 namespace EditorUML.ViewModel
 {
+    public enum ResizeDirection
+    {   
+        Left,
+        Up,
+        Right,
+        Down,
+        Nothing
+    }
     class ClassViewModel : ViewModel
     {
         private string _name;
@@ -14,29 +25,47 @@ namespace EditorUML.ViewModel
         private ObservableCollection<FieldViewModel> _methods;
         private Point _position;
         private Point _size;
+        private double _width = 0;
+        private double _height = 0;
         private int _id;
 
+        private ResizeDirection _resizeDirection;
         private System.Windows.Point _lastPositionMouse = new System.Windows.Point();
+        
+        private const int ThicknessResize = 10;
+
         
 
         public ClassViewModel()
         {
-            MouseMove = new Command<MouseEventArgs>((MouseEventArgs e) =>
-            {
-                if (_mouseDownFlag == false) return;
-                if (_lastPositionMouse == null) _lastPositionMouse = MainWindow.MousePosition; 
-                Position += (MainWindow.MousePosition - _lastPositionMouse);
-                _lastPositionMouse = MainWindow.MousePosition;
-
-            });
+            MouseMove = new Command(() => {});
             MouseUp = new Command(() =>
             {
                 _mouseDownFlag = false;
+                MouseMove = new Command(() => { });
+                OnPropertyChanged("MouseMove");
             });
             MouseDown = new Command(() =>
             {
+                var mousePosition = MainWindow.MousePosition - Position;
+                _resizeDirection = mousePosition.OnBorder(new Size(_width, _height), ThicknessResize);
                 _lastPositionMouse = MainWindow.MousePosition;
-                _mouseDownFlag = true;
+                if (_resizeDirection == ResizeDirection.Nothing)
+                {
+                    _mouseDownFlag = true;
+                    MouseMove = new Command(() =>
+                    {
+                        if (_mouseDownFlag == false) return;
+                        Position += (MainWindow.MousePosition - _lastPositionMouse);
+                        _lastPositionMouse = MainWindow.MousePosition;
+
+                    });
+                }
+                else
+                {
+                    MouseMove = new Command(ResizeMove);
+                }
+                OnPropertyChanged("MouseMove");
             });
             EditAttributes = new Command(() => { EditSelect(_selectAttribute); });
             SelectionAttributeChanged = new Command<RoutedEventArgs>((RoutedEventArgs e) =>
@@ -83,6 +112,43 @@ namespace EditorUML.ViewModel
             fieldEdit.Show();
         }
 
+        private void ResizeTo(double width, double height)
+        {
+            Width += width;
+            Height += height;
+        }
+
+        private void MoveTo(int x, int y)
+        {
+            var position = Position;
+            position.X += x;
+            position.Y += y;
+            Position = position;
+        }
+
+        private void ResizeMove()
+        {
+            var position = MainWindow.MousePosition;
+            var deltaPosition = position - _lastPositionMouse;
+            if (_resizeDirection == ResizeDirection.Left)
+            {
+                MoveTo((int) deltaPosition.X, 0);
+                ResizeTo(-deltaPosition.X, 0);
+            }
+
+            ;
+            if (_resizeDirection == ResizeDirection.Up)
+            {
+                MoveTo(0, (int) deltaPosition.Y);
+                ResizeTo(0, -deltaPosition.Y);
+            }
+
+            ;
+            if (_resizeDirection == ResizeDirection.Right) ResizeTo(deltaPosition.X, 0);
+            if (_resizeDirection == ResizeDirection.Down) ResizeTo(0,deltaPosition.Y);
+            _lastPositionMouse = position;
+        }
+
         public string Name
         {
             get => _name;
@@ -108,6 +174,19 @@ namespace EditorUML.ViewModel
             get => _size;
             set => Set(ref _size, value);
         }
+
+        public double Width
+        {
+            get => (!double.IsNaN(_width)) ? _width : 0;
+            set => Set(ref _width, value);
+        }
+
+        public double Height
+        {
+            get => (!double.IsNaN(_height)) ? _height : 0;
+            set => Set(ref _height, value);
+        }
+
         public int Id
         {
             get => _id;
@@ -116,7 +195,7 @@ namespace EditorUML.ViewModel
         
         public ICommand MouseDown { get; }
         public ICommand MouseUp { get; }
-        public ICommand MouseMove { get; }
+        public ICommand MouseMove { get; set; }
         private FieldViewModel _selectAttribute;
         private FieldViewModel _selectMethod;
         public ICommand EditAttributes { get;  }
@@ -128,9 +207,17 @@ namespace EditorUML.ViewModel
         public ICommand DeleteMethod { get; }
         
         private bool _mouseDownFlag = false;
+        private bool _resizeFlag = false;
     }
-
-    static class Ext
+    public static class ExtMethods
     {
+        public static ResizeDirection OnBorder(this Vector point, Size size, int borderThickness)
+        {
+            if (point.X < borderThickness) return ResizeDirection.Left;
+            if (point.Y < borderThickness) return ResizeDirection.Up;
+            if (point.X > size.Width - borderThickness) return ResizeDirection.Right;
+            if (point.Y > size.Height - borderThickness) return ResizeDirection.Down;
+            return ResizeDirection.Nothing;
+        }
     }
 }
