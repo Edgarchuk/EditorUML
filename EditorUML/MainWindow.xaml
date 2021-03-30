@@ -118,7 +118,7 @@
                             <ListView Grid.Row="3" ItemsSource="{Binding Methods}" >
                                 <i:Interaction.Triggers>
                                     <i:EventTrigger EventName="MouseDoubleClick">
-                                        <carel:EventToCommand Command="{Binding EditAttributes}"/>
+                                        <carel:EventToCommand Command="{Binding EditMethods}"/>
                                     </i:EventTrigger>
                                     <i:EventTrigger EventName="PreviewMouseLeftButtonUp">
                                         <carel:EventToCommand Command="{Binding SelectionMethodChanged}" PassEventArgsToCommand="True"></carel:EventToCommand>

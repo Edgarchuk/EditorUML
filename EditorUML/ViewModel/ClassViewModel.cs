@@ -70,6 +70,7 @@ namespace EditorUML.ViewModel
                 OnPropertyChanged("MouseMove");
             });
             EditAttributes = new Command(() => { EditSelect(_selectAttribute); });
+            EditMethods = new Command(() => { EditSelect(_selectMethod); });
             SelectionAttributeChanged = new Command<RoutedEventArgs>((RoutedEventArgs e) =>
             {
                 ListView listView = (ListView) e.Source;
@@ -219,6 +220,8 @@ namespace EditorUML.ViewModel
         public ICommand DeleteLine { get; }
 
         public ICommand DeleteClass { get; }
+
+        public object EditMethods { get; }
 
         private bool _mouseDownFlag = false;
         private bool _resizeFlag = false;
