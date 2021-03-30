@@ -25,7 +25,6 @@ namespace EditorUML.ViewModel
         private ObservableCollection<FieldViewModel> _attributes;
         private ObservableCollection<FieldViewModel> _methods;
         private Point _position;
-        private Point _size;
         private double _width = 0;
         private double _height = 0;
         private int _id;
@@ -113,6 +112,11 @@ namespace EditorUML.ViewModel
             {
                 MainWindowViewModel.MainWindowSingleton.StartDeleteLine(this);
             });
+            DeleteClass = new Command(() =>
+            {
+                MainWindowViewModel.MainWindowSingleton.DeleteClass(this);
+                ;
+            });
         }
 
 
@@ -180,11 +184,6 @@ namespace EditorUML.ViewModel
             get => _position;
             set => Set(ref _position, value);
         }
-        public Point Size
-        {
-            get => _size;
-            set => Set(ref _size, value);
-        }
 
         public double Width
         {
@@ -218,6 +217,9 @@ namespace EditorUML.ViewModel
         public ICommand DeleteMethod { get; }
         public ICommand AddLine { get; }
         public ICommand DeleteLine { get; }
+
+        public ICommand DeleteClass { get; }
+
         private bool _mouseDownFlag = false;
         private bool _resizeFlag = false;
     }

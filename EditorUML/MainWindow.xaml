@@ -25,7 +25,15 @@
         </ContextMenu>
     </Window.ContextMenu>
     <Grid>
-        <ItemsControl ItemsSource="{Binding LineaViewModels}">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition />
+        </Grid.RowDefinitions>
+        <Menu>
+            <MenuItem Header="Загрузить" Command="{Binding Load}"></MenuItem>
+            <MenuItem Header="Сохранить" Command="{Binding Save}"></MenuItem>
+        </Menu>
+        <ItemsControl Grid.Row="1" ItemsSource="{Binding LineaViewModels}">
             <ItemsControl.ItemTemplate>
                 <DataTemplate>
                     <Grid>
@@ -53,7 +61,7 @@
                 </ItemsPanelTemplate>
             </ItemsControl.ItemsPanel>
         </ItemsControl>
-        <ItemsControl ItemsSource="{Binding ClassViewModels}">
+        <ItemsControl Grid.Row="1" ItemsSource="{Binding ClassViewModels}">
             <ItemsControl.ItemTemplate>
                 <DataTemplate>
                     <Border BorderThickness="3" CornerRadius="8" BorderBrush="Black" Background="Snow"
@@ -64,6 +72,7 @@
                             <ContextMenu>
                                 <MenuItem Header="Добавить соединение" Command="{Binding AddLine}"/>
                                 <MenuItem Header="Удалить соединение" Command="{Binding DeleteLine}"></MenuItem>
+                                <MenuItem Header="Удалить класс" Command="{Binding DeleteClass}"></MenuItem>
                             </ContextMenu>
                         </Border.ContextMenu>
                         <i:Interaction.Triggers>

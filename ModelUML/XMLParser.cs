@@ -29,7 +29,7 @@ namespace ModelUML
                     
                     var point = new Point();
                     point.X = int.Parse(str[0]);
-                    point.Y = int.Parse(str[0]);
+                    point.Y = int.Parse(str[1]);
                     return point;
                 }
                 if (Node.Name == "Class")
