@@ -9,7 +9,7 @@
         xmlns:viewModel="clr-namespace:EditorUML.ViewModel"
         xmlns:carel="http://schemas.catelproject.com"
         mc:Ignorable="d"
-        Title="MainWindow" Height="800" Width="1200"
+        Title="UML" Height="800" Width="1200"
         MouseMove="MainWindow_OnMouseMove">
     <Window.DataContext>
         <viewModel:MainWindowViewModel/>
