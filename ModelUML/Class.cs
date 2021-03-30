@@ -47,4 +47,15 @@ namespace ModelUML
             return temp;
         }
     }
+
+    public class Line
+    {
+        public int First;
+        public int Second;
+
+        public override string ToString()
+        {
+            return $"Line {First} {Second}";
+        }
+    }
 }

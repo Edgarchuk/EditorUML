@@ -36,6 +36,7 @@ namespace ModelUML
                 {
                     Class temp = new Class()
                     {
+                        Id = Convert.ToInt32(Node.Attributes.GetNamedItem("Id").Value),
                         Name = Node.Attributes.GetNamedItem("Name").Value,
                         Attributes = GetField("Attribute"),
                         Methods = GetField("Method"),
@@ -62,6 +63,21 @@ namespace ModelUML
                 }
             }
             yield break;
+        }
+
+        public IEnumerable<Line> GetLines()
+        {
+            foreach (XmlNode Node in _document.DocumentElement)
+            {
+                if (Node.Name == "Line")
+                {
+                    yield return new Line()
+                    {
+                        First = Convert.ToInt32(Node.Attributes.GetNamedItem("FirstId").Value),
+                        Second = Convert.ToInt32(Node.Attributes.GetNamedItem("SecondId").Value)
+                    };
+                }
+            }
         }
     }
 

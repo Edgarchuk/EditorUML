@@ -9,6 +9,11 @@ namespace EditorUML.ViewModel
     internal class LineViewModel : ViewModel
     {
         private readonly ClassViewModel _firstClass;
+
+        public ClassViewModel FirstClass => _firstClass;
+
+        public ClassViewModel SecondClass => _secondClass;
+
         private readonly ClassViewModel _secondClass;
 
         public LineViewModel(ClassViewModel firstClass, ClassViewModel secondClass)

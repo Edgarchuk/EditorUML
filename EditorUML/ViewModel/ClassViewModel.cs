@@ -18,7 +18,8 @@ namespace EditorUML.ViewModel
         Down,
         Nothing
     }
-    class ClassViewModel : ViewModel
+
+    public class ClassViewModel : ViewModel
     {
         private string _name;
         private ObservableCollection<FieldViewModel> _attributes;
@@ -47,6 +48,8 @@ namespace EditorUML.ViewModel
             });
             MouseDown = new Command(() =>
             {
+                MainWindowViewModel.MainWindowSingleton.EndNewLine(this);
+                MainWindowViewModel.MainWindowSingleton.EndDeleteLine(this);
                 var mousePosition = MainWindow.MousePosition - Position;
                 _resizeDirection = mousePosition.OnBorder(new Size(_width, _height), ThicknessResize);
                 _lastPositionMouse = MainWindow.MousePosition;
@@ -101,6 +104,14 @@ namespace EditorUML.ViewModel
             {
                 Methods.Remove(_selectMethod);
                 _selectMethod = null;
+            });
+            AddLine = new Command(() =>
+            {
+                MainWindowViewModel.MainWindowSingleton.StartNewLine(this);
+            });
+            DeleteLine = new Command(() =>
+            {
+                MainWindowViewModel.MainWindowSingleton.StartDeleteLine(this);
             });
         }
 
@@ -205,7 +216,8 @@ namespace EditorUML.ViewModel
         public ICommand AddMethod { get; }
         public ICommand DeleteAttribute { get; }
         public ICommand DeleteMethod { get; }
-        
+        public ICommand AddLine { get; }
+        public ICommand DeleteLine { get; }
         private bool _mouseDownFlag = false;
         private bool _resizeFlag = false;
     }

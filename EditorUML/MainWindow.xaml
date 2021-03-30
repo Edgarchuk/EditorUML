@@ -19,7 +19,11 @@
             <Setter Property="Visibility" Value="Collapsed" />
         </Style>
     </Window.Resources>
-    
+    <Window.ContextMenu>
+        <ContextMenu>
+            <MenuItem Header="Добавить" Command="{Binding AddClass}"></MenuItem>
+        </ContextMenu>
+    </Window.ContextMenu>
     <Grid>
         <ItemsControl ItemsSource="{Binding LineaViewModels}">
             <ItemsControl.ItemTemplate>
@@ -43,6 +47,11 @@
                     </Grid>
                 </DataTemplate>
             </ItemsControl.ItemTemplate>
+            <ItemsControl.ItemsPanel>
+                <ItemsPanelTemplate>
+                    <Canvas></Canvas>
+                </ItemsPanelTemplate>
+            </ItemsControl.ItemsPanel>
         </ItemsControl>
         <ItemsControl ItemsSource="{Binding ClassViewModels}">
             <ItemsControl.ItemTemplate>
@@ -51,6 +60,12 @@
                             Height="{Binding Height}"
                             Width="{Binding Width}"
                             Initialized="FrameworkElement_OnInitialized">
+                        <Border.ContextMenu>
+                            <ContextMenu>
+                                <MenuItem Header="Добавить соединение" Command="{Binding AddLine}"/>
+                                <MenuItem Header="Удалить соединение" Command="{Binding DeleteLine}"></MenuItem>
+                            </ContextMenu>
+                        </Border.ContextMenu>
                         <i:Interaction.Triggers>
                             <i:EventTrigger EventName="MouseDown">
                                 <carel:EventToCommand Command="{Binding MouseDown}" DisableAssociatedObjectOnCannotExecute="False"  />
@@ -64,13 +79,13 @@
                         </i:Interaction.Triggers>
                         <Grid Margin="3">
                             <Grid.RowDefinitions>
-                                <RowDefinition Height="30"></RowDefinition>
+                                <RowDefinition Height="20"></RowDefinition>
                                 <RowDefinition Height="Auto"></RowDefinition>
                                 <RowDefinition Height="20"></RowDefinition>
                                 <RowDefinition Height="Auto"/>
                                 <RowDefinition Height="20"/>
                             </Grid.RowDefinitions>
-                            <Label Content="{Binding Name}" />
+                            <TextBox Text="{Binding Name, UpdateSourceTrigger=LostFocus}" />
                             <ListView Grid.Row="1" ItemsSource="{Binding Attributes}" >
                                 <i:Interaction.Triggers>
                                     <i:EventTrigger EventName="MouseDoubleClick">
