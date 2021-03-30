@@ -9,17 +9,19 @@ namespace ModelUML
 {
     public class XmlParser
     {
+        private readonly string _pathFile;
 
         private XmlDocument _document;
 
         public XmlParser(string pathFile)
         {
+            _pathFile = pathFile;
             _document = new XmlDocument();
-            _document.Load(pathFile);
         }
 
         public IEnumerable<Class> GetClasses()
         {
+            _document.Load(_pathFile);
             foreach (XmlNode Node in _document.DocumentElement)
             {
                 Point getPointString(string[] str)
@@ -30,10 +32,11 @@ namespace ModelUML
                     point.Y = int.Parse(str[0]);
                     return point;
                 }
-                string[] position = Node.Attributes.GetNamedItem("Position").Value.Split();
-                string[] size =  Node.Attributes.GetNamedItem("Size").Value.Split();
                 if (Node.Name == "Class")
                 {
+                    
+                    string[] position = Node.Attributes.GetNamedItem("Position").Value.Split();
+                    string[] size =  Node.Attributes.GetNamedItem("Size").Value.Split();
                     Class temp = new Class()
                     {
                         Id = Convert.ToInt32(Node.Attributes.GetNamedItem("Id").Value),
@@ -53,13 +56,13 @@ namespace ModelUML
                                 yield return new Field()
                                 {
                                     Name = xmlNode.Attributes.GetNamedItem("Name").Value,
-                                    Type = xmlNode.Attributes.GetNamedItem("Type").Value.GetVisibilityType(),
+                                    Type = Enum.Parse<VisibilityType>( xmlNode.Attributes.GetNamedItem("Type").Value),
                                 };
                             }
                         }
                     }
-
                     yield return temp;
+
                 }
             }
             yield break;
